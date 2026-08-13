@@ -419,7 +419,7 @@ async function loadBelajar() {
   const listEl = document.getElementById("path-list");
   listEl.innerHTML = "Memuat...";
   const result = await apiCall({ action:"getHurufLevels", token });
-  if (!result.success) { listEl.innerHTML = "Gagal memuat."; return; }
+  if (!result.success) { listEl.innerHTML = "Gagal memuat: " + (result.message || "tidak diketahui"); return; }
   listEl.innerHTML = result.levels.map(l => `
     <div class="path-node ${l.unlocked ? "unlocked" : "locked"}" ${l.unlocked ? `onclick="startHurufQuiz(${l.level})"` : ""}>
       <div class="lv-badge">${l.unlocked ? l.level : "🔒"}</div>
@@ -486,17 +486,11 @@ function showHurufSummary() {
 // ==== MENULIS ====
 async function loadMenulis() {
   showView("menulis");
-  const result = await apiCall({ action:"getHurufLevels", token });
-  if (!result.success) return;
-  // ambil huruf dari level yang sudah terbuka via getHurufQuestions gabungan
-  const unlockedLevels = result.levels.filter(l => l.unlocked).map(l => l.level);
-  writeChars = [];
-  for (const lvl of unlockedLevels) {
-    const q = await apiCall({ action:"getHurufQuestions", token, level: lvl });
-    if (q.success) writeChars = writeChars.concat(q.questions.map(x => x.karakter));
-  }
-  if (writeChars.length === 0) writeChars = ["あ","い","う","え","お"];
   const grid = document.getElementById("write-char-grid");
+  grid.innerHTML = "Memuat...";
+  const result = await apiCall({ action:"getUnlockedChars", token });
+  if (!result.success || result.chars.length === 0) { writeChars = ["あ","い","う","え","お"]; }
+  else { writeChars = result.chars.map(c => c.karakter); }
   grid.innerHTML = "";
   writeChars.forEach(ch => {
     const el = document.createElement("div");
@@ -629,7 +623,7 @@ async function loadLeaderboard() {
   const listEl = document.getElementById("lb-list");
   listEl.innerHTML = "Memuat...";
   const result = await apiCall({ action:"getLeaderboard" });
-  if (!result.success) { listEl.innerHTML = "Gagal memuat."; return; }
+  if (!result.success) { listEl.innerHTML = "Gagal memuat: " + (result.message || "tidak diketahui"); return; }
   listEl.innerHTML = result.leaderboard.map((u,i) => `
     <div class="lb-row"><div class="lb-rank">#${i+1}</div><div class="lb-avatar">${u.avatar}</div>
     <div class="lb-name">${u.username}<br><span style="font-size:11px;color:var(--abu);">Level ${u.level}</span></div>
