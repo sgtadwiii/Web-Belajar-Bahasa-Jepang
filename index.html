@@ -5,272 +5,376 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NihonGo — Belajar Bahasa Jepang</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho:wght@600;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap');
 
   :root{
-    --ai:#22314f; --ai-light:#3d5a80; --beni:#b23a48;
-    --washi:#f4efe4; --washi-2:#ece3d0; --ink:#22201c; --gold:#c8a24a;
+    --merah:#E63946; --ungu:#7B2CBF; --malam:#14142B; --krem:#FFF7ED;
+    --emas:#FFB703; --mint:#06D6A0; --putih:#FFFFFF; --ink:#1F1B24; --abu:#8A8398;
+    --card-bd:#F0E4E8;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  body{font-family:'Zen Kaku Gothic New', sans-serif; background:var(--washi); color:var(--ink); min-height:100vh;
-    background-image:radial-gradient(circle at 10% 10%, rgba(34,49,79,0.04) 0, transparent 40%),radial-gradient(circle at 90% 90%, rgba(178,58,72,0.05) 0, transparent 40%);}
-  .container{max-width:480px; margin:0 auto; min-height:100vh; padding:24px 20px 90px; position:relative;}
-
-  header.brand{text-align:center; margin-bottom:28px;}
-  header.brand .kanji{font-family:'Shippori Mincho', serif; font-size:42px; font-weight:800; color:var(--ai); letter-spacing:4px;}
-  header.brand .sub{font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--beni); margin-top:4px;}
-
-  .card{background:#fffdf8; border:1px solid var(--washi-2); border-radius:2px; padding:28px 24px;
-    box-shadow:4px 4px 0 rgba(34,49,79,0.06); position:relative; margin-bottom:16px;}
-  .card::before{content:""; position:absolute; top:0; left:0; width:4px; height:100%; background:var(--beni);}
-
-  h2{font-family:'Shippori Mincho', serif; font-size:20px; color:var(--ai); margin-bottom:18px; font-weight:800;}
-  h3{font-family:'Shippori Mincho', serif; font-size:16px; color:var(--ai); margin:16px 0 8px; font-weight:700;}
-
-  label{display:block; font-size:12px; letter-spacing:1px; color:var(--ai-light); margin:14px 0 6px; text-transform:uppercase;}
-  input{width:100%; padding:11px 12px; border:1px solid #d8cfba; border-radius:2px; font-size:15px; font-family:inherit; background:#fff;}
-  input:focus{outline:none; border-color:var(--ai);}
-
-  button{width:100%; margin-top:16px; padding:13px; background:var(--ai); color:#fff; border:none; border-radius:2px;
-    font-family:inherit; font-size:14px; letter-spacing:1px; font-weight:700; cursor:pointer;}
-  button:hover{background:var(--ai-light);}
-  button.secondary{background:transparent; color:var(--ai); border:1px solid var(--ai);}
-  button.secondary:hover{background:rgba(34,49,79,0.06);}
-  button.danger{background:transparent; color:var(--beni); border:1px solid var(--beni);}
-
-  .switch{text-align:center; margin-top:16px; font-size:13px; color:var(--ai-light);}
-  .switch a{color:var(--beni); text-decoration:none; font-weight:700; cursor:pointer;}
-
-  .msg{font-size:13px; margin-top:12px; padding:10px 12px; border-radius:2px;}
-  .msg.err{background:#f9e3e3; color:var(--beni);}
-  .msg.ok{background:#e5efe6; color:#2c6b34;}
+  body{font-family:'Zen Kaku Gothic New', sans-serif; background:var(--krem); color:var(--ink); min-height:100vh;}
+  .container{max-width:480px; margin:0 auto; min-height:100vh; padding:0 0 88px;}
+  h1,h2,h3,.display{font-family:'Baloo 2', sans-serif;}
   .hidden{display:none !important;}
 
+  /* Header gradient */
+  .hero{
+    background:linear-gradient(135deg, var(--merah), var(--ungu));
+    color:#fff; padding:28px 20px 22px; border-radius:0 0 28px 28px;
+    position:relative; overflow:hidden;
+  }
+  .hero::after{content:"⛩️"; position:absolute; right:-10px; top:-10px; font-size:90px; opacity:0.15;}
+  .hero .brand{font-size:26px; font-weight:800; letter-spacing:0.5px;}
+  .hero .brand small{display:block; font-size:11px; font-weight:500; letter-spacing:2px; opacity:0.85; margin-top:2px;}
+  .stripe{height:6px; background:repeating-linear-gradient(45deg, var(--emas) 0 10px, var(--putih) 10px 20px);}
+
+  .wrap{padding:20px;}
+
+  .card{background:#fff; border:1px solid var(--card-bd); border-radius:20px; padding:20px; margin-bottom:16px; box-shadow:0 4px 16px rgba(31,27,36,0.05);}
+  h2.title{font-size:19px; font-weight:800; color:var(--malam); margin-bottom:14px;}
+
+  label{display:block; font-size:11px; font-weight:700; letter-spacing:1px; color:var(--abu); margin:14px 0 6px; text-transform:uppercase;}
+  input{width:100%; padding:13px 14px; border:2px solid var(--card-bd); border-radius:14px; font-size:15px; font-family:inherit; background:#fff;}
+  input:focus{outline:none; border-color:var(--merah);}
+
+  button{width:100%; margin-top:16px; padding:14px; background:var(--merah); color:#fff; border:none; border-radius:16px;
+    font-family:'Baloo 2', sans-serif; font-size:15px; font-weight:700; letter-spacing:0.3px; cursor:pointer; box-shadow:0 4px 0 #B22B36;}
+  button:active{transform:translateY(2px); box-shadow:0 2px 0 #B22B36;}
+  button.secondary{background:#fff; color:var(--merah); border:2px solid var(--merah); box-shadow:none; margin-top:8px;}
+  button.ghost{background:var(--malam); box-shadow:0 4px 0 #05050f;}
+
+  .switch{text-align:center; margin-top:16px; font-size:13px; color:var(--abu);}
+  .switch a{color:var(--merah); text-decoration:none; font-weight:700; cursor:pointer;}
+  .msg{font-size:13px; margin-top:12px; padding:11px 14px; border-radius:12px; font-weight:600;}
+  .msg.err{background:#FDE2E4; color:#C1121F;}
+  .msg.ok{background:#DFF7EA; color:#0B7A47;}
+
   /* Nav bawah */
-  .navbar{position:fixed; bottom:0; left:0; right:0; background:#fffdf8; border-top:1px solid var(--washi-2);
-    display:flex; max-width:480px; margin:0 auto; z-index:10;}
-  .navbar button{flex:1; margin:0; background:none; color:var(--ai-light); border:none; border-radius:0;
-    padding:12px 4px; font-size:11px; font-weight:600;}
-  .navbar button.active{color:var(--beni);}
+  .navbar{position:fixed; bottom:0; left:0; right:0; background:#fff; border-top:1px solid var(--card-bd);
+    display:flex; max-width:480px; margin:0 auto; z-index:10; padding:6px 0; box-shadow:0 -4px 16px rgba(0,0,0,0.04);}
+  .navbar button{flex:1; margin:0; background:none; color:var(--abu); border:none; border-radius:0; box-shadow:none;
+    padding:8px 2px; font-size:10px; font-weight:700;}
+  .navbar button .ic{font-size:20px; display:block;}
+  .navbar button.active{color:var(--merah);}
 
-  /* Dashboard */
-  .stats{display:flex; gap:12px; margin-bottom:16px;}
-  .stat{flex:1; background:#fffdf8; border:1px solid var(--washi-2); padding:16px 10px; text-align:center; border-radius:2px;}
-  .stat .num{font-family:'Shippori Mincho', serif; font-size:26px; font-weight:800; color:var(--ai);}
-  .stat .lbl{font-size:11px; letter-spacing:1px; color:var(--ai-light); text-transform:uppercase; margin-top:4px;}
+  /* XP / streak strip */
+  .xp-strip{display:flex; align-items:center; gap:14px; margin:16px 20px 4px;}
+  .streak-badge{background:#fff; border-radius:16px; padding:8px 14px; display:flex; align-items:center; gap:6px; font-weight:800; font-family:'Baloo 2'; color:var(--merah); box-shadow:0 4px 16px rgba(31,27,36,0.06);}
+  .xp-bar-outer{flex:1; background:#fff; border-radius:20px; height:16px; box-shadow:0 4px 16px rgba(31,27,36,0.06); overflow:hidden;}
+  .xp-bar-inner{height:100%; background:linear-gradient(90deg, var(--emas), var(--merah)); border-radius:20px; transition:width .4s;}
 
-  .topbar{display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;}
-  .topbar .hello{font-size:14px; color:var(--ai-light);}
-  .topbar .hello b{color:var(--ai);}
-  .topbar .avatar{font-size:30px;}
-  .level-pill{display:inline-block; background:var(--gold); color:#3a2c05; font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; margin-top:6px;}
+  .stats{display:flex; gap:10px; margin-bottom:6px;}
+  .stat{flex:1; background:#fff; border:1px solid var(--card-bd); padding:14px 8px; text-align:center; border-radius:16px;}
+  .stat .num{font-family:'Baloo 2'; font-size:22px; font-weight:800; color:var(--malam);}
+  .stat .lbl{font-size:10px; font-weight:700; letter-spacing:1px; color:var(--abu); text-transform:uppercase; margin-top:2px;}
 
-  /* Quiz */
-  .soal-kata{font-family:'Shippori Mincho', serif; font-size:44px; text-align:center; color:var(--ai); margin:20px 0 6px; font-weight:800;}
-  .soal-level{text-align:center; font-size:11px; color:var(--beni); letter-spacing:2px; text-transform:uppercase; margin-bottom:20px;}
-  .pilihan-btn{display:block; width:100%; text-align:left; background:#fffdf8; border:1px solid #d8cfba; padding:13px 14px; margin-bottom:10px; border-radius:2px; font-size:15px; cursor:pointer; color:var(--ink);}
-  .pilihan-btn:hover{border-color:var(--ai);}
-  .pilihan-btn.correct{background:#e5efe6; border-color:#2c6b34; color:#2c6b34;}
-  .pilihan-btn.wrong{background:#f9e3e3; border-color:var(--beni); color:var(--beni);}
-  .pilihan-btn[disabled]{cursor:default;}
-  .progress-info{text-align:center; font-size:12px; color:var(--ai-light); margin-bottom:6px;}
+  .avatar-lg{font-size:34px; background:#fff; border-radius:50%; width:56px; height:56px; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 16px rgba(31,27,36,0.08);}
+  .topline{display:flex; align-items:center; gap:12px;}
+  .topline .hello{font-size:13px; color:var(--abu);}
+  .topline .hello b{color:var(--malam); font-size:16px; display:block;}
+
+  .action-card{display:flex; align-items:center; gap:14px; background:#fff; border-radius:18px; padding:16px; margin-bottom:12px; border:1px solid var(--card-bd); cursor:pointer;}
+  .action-card .emoji{font-size:30px;}
+  .action-card .txt b{display:block; font-size:15px; color:var(--malam);}
+  .action-card .txt span{font-size:12px; color:var(--abu);}
+
+  /* Learning path */
+  .path-node{display:flex; align-items:center; gap:14px; padding:14px; border-radius:18px; margin-bottom:10px; border:2px solid var(--card-bd); background:#fff;}
+  .path-node.unlocked{border-color:var(--merah); cursor:pointer;}
+  .path-node.locked{opacity:0.55;}
+  .path-node .lv-badge{width:44px; height:44px; border-radius:50%; background:var(--krem); display:flex; align-items:center; justify-content:center; font-family:'Baloo 2'; font-weight:800; font-size:15px; color:var(--merah); flex-shrink:0;}
+  .path-node.locked .lv-badge{background:#eee; color:var(--abu);}
+  .path-node .info b{display:block; font-size:14px; color:var(--malam);}
+  .path-node .info span{font-size:11px; color:var(--abu); text-transform:capitalize;}
+
+  /* Quiz huruf */
+  .quiz-header{display:flex; justify-content:space-between; align-items:center; padding:16px 20px 4px;}
+  .quiz-back{background:none; box-shadow:none; width:auto; margin:0; padding:6px 12px; color:var(--merah); font-size:12px; border:1px solid var(--merah); border-radius:12px;}
+  .huruf-display{font-size:110px; text-align:center; margin:14px 0 6px; color:var(--malam); font-family:'Zen Kaku Gothic New';}
+  .huruf-progress{text-align:center; font-size:12px; color:var(--abu); font-weight:700; margin-bottom:8px;}
+  .opt-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .opt-btn{background:#fff; border:2px solid var(--card-bd); border-radius:16px; padding:16px; font-size:17px; font-weight:700; color:var(--malam); cursor:pointer; box-shadow:0 3px 0 var(--card-bd);}
+  .opt-btn:active{transform:translateY(2px); box-shadow:none;}
+  .opt-btn.correct{border-color:var(--mint); background:#DFF7EA; color:#0B7A47; box-shadow:0 3px 0 #0B7A47;}
+  .opt-btn.wrong{border-color:var(--merah); background:#FDE2E4; color:#C1121F; box-shadow:0 3px 0 #C1121F;}
+  .opt-btn[disabled]{cursor:default;}
+  .sound-btn{width:auto; margin:0 auto 10px; display:block; background:none; box-shadow:none; color:var(--ungu); font-size:24px; padding:4px;}
+
+  .summary-box{text-align:center; padding:20px;}
+  .summary-box .big-emoji{font-size:64px;}
+
+  /* Menulis */
+  .char-grid{display:grid; grid-template-columns:repeat(6,1fr); gap:8px; margin-bottom:16px;}
+  .char-pick{background:#fff; border:2px solid var(--card-bd); border-radius:12px; padding:8px 0; text-align:center; font-size:20px; cursor:pointer;}
+  .char-pick.active{border-color:var(--merah); background:#FDE2E4;}
+  canvas{width:100%; aspect-ratio:1/1; background:#fff; border:2px dashed var(--card-bd); border-radius:20px; touch-action:none;}
+  .canvas-actions{display:flex; gap:10px;}
+  .canvas-actions button{margin-top:12px;}
 
   /* Kamus */
   .search-row{display:flex; gap:8px;}
   .search-row input{flex:1; margin-top:0;}
-  .search-row button{width:auto; margin-top:0; padding:11px 16px;}
-  .word-card{border:1px solid var(--washi-2); padding:14px; border-radius:2px; margin-top:10px; background:#fffdf8;}
-  .word-card .jp{font-family:'Shippori Mincho', serif; font-size:22px; color:var(--ai); font-weight:800;}
-  .word-card .reading{font-size:12px; color:var(--ai-light);}
+  .search-row button{width:auto; margin-top:0; padding:12px 18px;}
+  .word-card{border:1px solid var(--card-bd); padding:14px; border-radius:16px; margin-top:10px; background:var(--krem);}
+  .word-card .jp{font-size:22px; color:var(--malam); font-weight:800;}
+  .word-card .reading{font-size:12px; color:var(--abu);}
   .word-card .meaning{font-size:13px; margin-top:6px;}
-  .word-card .pos{font-size:11px; color:var(--beni); margin-top:4px; text-transform:uppercase;}
+  .word-card .pos{font-size:11px; color:var(--merah); margin-top:4px; text-transform:uppercase; font-weight:700;}
   .word-card .actions{display:flex; gap:8px; margin-top:10px;}
-  .word-card .actions button{width:auto; flex:1; margin-top:0; padding:8px; font-size:11px;}
-  .extra-box{margin-top:10px; background:var(--washi); padding:10px; border-radius:2px; font-size:12px;}
-  .kanji-chip{display:inline-block; background:var(--ai); color:#fff; font-family:'Shippori Mincho',serif; font-size:18px; padding:2px 8px; border-radius:2px; margin:2px 4px 2px 0; cursor:pointer;}
-  .example-line{margin-top:6px; padding-top:6px; border-top:1px dashed var(--washi-2);}
-  .example-line .jp{font-size:14px; font-weight:600;}
-  .example-line .tr{font-size:12px; color:var(--ai-light);}
+  .word-card .actions button{width:auto; flex:1; margin-top:0; padding:9px; font-size:11px;}
+  .extra-box{margin-top:10px; background:#fff; padding:10px; border-radius:12px; font-size:12px;}
+  .example-line{margin-top:6px; padding-top:6px; border-top:1px dashed var(--card-bd);}
+  .example-line .jp{font-size:14px; font-weight:700;}
+  .example-line .tr{font-size:12px; color:var(--abu);}
 
   /* Leaderboard */
-  .lb-row{display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--washi-2);}
-  .lb-rank{font-family:'Shippori Mincho', serif; font-weight:800; color:var(--gold); width:22px;}
+  .lb-row{display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--card-bd);}
+  .lb-rank{font-family:'Baloo 2'; font-weight:800; color:var(--emas); width:22px;}
   .lb-avatar{font-size:22px;}
-  .lb-name{flex:1; font-weight:600; font-size:14px;}
-  .lb-score{font-size:13px; color:var(--beni); font-weight:700;}
+  .lb-name{flex:1; font-weight:700; font-size:14px;}
+  .lb-score{font-size:13px; color:var(--merah); font-weight:800;}
 
   .avatar-picker{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;}
-  .avatar-opt{font-size:26px; padding:6px 10px; border:1px solid var(--washi-2); border-radius:2px; cursor:pointer;}
-  .avatar-opt.selected{border-color:var(--beni); background:#f9e3e3;}
-
-  footer{text-align:center; font-size:11px; color:#a89f8a; margin-top:10px; letter-spacing:1px;}
+  .avatar-opt{font-size:26px; padding:6px 10px; border:2px solid var(--card-bd); border-radius:12px; cursor:pointer;}
+  .avatar-opt.selected{border-color:var(--merah); background:#FDE2E4;}
 </style>
 </head>
 <body>
 <div class="container">
 
-  <header class="brand">
-    <div class="kanji">日本語</div>
-    <div class="sub">NihonGo · Belajar Bahasa Jepang</div>
-  </header>
-
   <!-- ==== LOGIN ==== -->
-  <div id="view-login" class="card">
-    <h2>Masuk</h2>
-    <label>Username</label>
-    <input type="text" id="login-username" placeholder="username kamu">
-    <label>Password</label>
-    <input type="password" id="login-password" placeholder="••••••••">
-    <button onclick="handleLogin()">Masuk</button>
-    <div class="switch">Belum punya akun? <a onclick="showView('register')">Daftar di sini</a></div>
-    <div id="login-msg"></div>
+  <div id="view-login">
+    <div class="hero"><div class="brand">日本語 NihonGo<small>BELAJAR JEPANG · GEN Z EDITION</small></div></div>
+    <div class="stripe"></div>
+    <div class="wrap">
+      <div class="card">
+        <h2 class="title">Masuk 👋</h2>
+        <label>Username</label>
+        <input type="text" id="login-username" placeholder="username kamu">
+        <label>Password</label>
+        <input type="password" id="login-password" placeholder="••••••••">
+        <button onclick="handleLogin()">Masuk</button>
+        <div class="switch">Belum punya akun? <a onclick="showView('register')">Daftar di sini</a></div>
+        <div id="login-msg"></div>
+      </div>
+    </div>
   </div>
 
   <!-- ==== REGISTER ==== -->
-  <div id="view-register" class="card hidden">
-    <h2>Daftar Akun Baru</h2>
-    <label>Username</label>
-    <input type="text" id="reg-username" placeholder="pilih username">
-    <label>Email (opsional)</label>
-    <input type="email" id="reg-email" placeholder="email@contoh.com">
-    <label>Password</label>
-    <input type="password" id="reg-password" placeholder="minimal 6 karakter">
-    <button onclick="handleRegister()">Daftar</button>
-    <div class="switch">Sudah punya akun? <a onclick="showView('login')">Masuk</a></div>
-    <div id="reg-msg"></div>
-  </div>
-
-  <!-- ==== DASHBOARD ==== -->
-  <div id="view-dashboard" class="hidden">
-    <div class="topbar">
-      <div class="hello"><span class="avatar" id="dash-avatar">🎓</span><br>Halo, <b id="dash-username"></b><br><span class="level-pill" id="dash-level"></span></div>
-    </div>
-    <div class="stats">
-      <div class="stat"><div class="num" id="stat-score">0</div><div class="lbl">Skor</div></div>
-      <div class="stat"><div class="num" id="stat-benar">0</div><div class="lbl">Benar</div></div>
-      <div class="stat"><div class="num" id="stat-salah">0</div><div class="lbl">Salah</div></div>
-    </div>
-    <div class="card">
-      <h2>Mulai Latihan</h2>
-      <label>Pilih Level JLPT</label>
-      <input type="text" id="quiz-level" placeholder="contoh: N5" value="N5">
-      <button onclick="startQuiz()">Mulai Kuis</button>
-    </div>
-  </div>
-
-  <!-- ==== QUIZ ==== -->
-  <div id="view-quiz" class="hidden">
-    <div class="topbar">
-      <div class="hello">Skor sesi ini: <b id="quiz-score-live">0</b></div>
-      <button class="secondary" style="width:auto; margin:0; padding:6px 12px; font-size:11px;" onclick="backToDashboard()">Selesai</button>
-    </div>
-    <div class="card">
-      <div class="progress-info" id="quiz-progress"></div>
-      <div class="soal-level" id="quiz-soal-level"></div>
-      <div class="soal-kata" id="quiz-soal-kata"></div>
-      <div id="quiz-pilihan-container"></div>
-      <button class="secondary hidden" id="btn-next" onclick="nextQuestion()">Soal Berikutnya →</button>
-    </div>
-  </div>
-
-  <!-- ==== KAMUS (Multi-API) ==== -->
-  <div id="view-dictionary" class="hidden">
-    <div class="card">
-      <h2>Kamus Jepang</h2>
-      <div class="search-row">
-        <input type="text" id="dict-keyword" placeholder="cari kata (jepang/indonesia/inggris)">
-        <button onclick="searchWord()">Cari</button>
+  <div id="view-register" class="hidden">
+    <div class="hero"><div class="brand">日本語 NihonGo<small>BELAJAR JEPANG · GEN Z EDITION</small></div></div>
+    <div class="stripe"></div>
+    <div class="wrap">
+      <div class="card">
+        <h2 class="title">Daftar Akun Baru ✨</h2>
+        <label>Username</label>
+        <input type="text" id="reg-username" placeholder="pilih username">
+        <label>Email (opsional)</label>
+        <input type="email" id="reg-email" placeholder="email@contoh.com">
+        <label>Password</label>
+        <input type="password" id="reg-password" placeholder="minimal 6 karakter">
+        <button onclick="handleRegister()">Daftar</button>
+        <div class="switch">Sudah punya akun? <a onclick="showView('login')">Masuk</a></div>
+        <div id="reg-msg"></div>
       </div>
-      <div style="font-size:11px; color:var(--ai-light); margin-top:8px;">Sumber: Jisho.org · KanjiAPI.dev · Tatoeba</div>
-      <div id="dict-msg"></div>
-      <div id="dict-results"></div>
+    </div>
+  </div>
+
+  <!-- ==== BERANDA ==== -->
+  <div id="view-dashboard" class="hidden">
+    <div class="hero">
+      <div class="topline">
+        <div class="avatar-lg" id="dash-avatar">🎓</div>
+        <div class="hello">Halo,<b id="dash-username"></b></div>
+      </div>
+    </div>
+    <div class="xp-strip">
+      <div class="streak-badge">🔥 <span id="dash-streak">0</span></div>
+      <div class="xp-bar-outer"><div class="xp-bar-inner" id="dash-xpbar" style="width:0%"></div></div>
+    </div>
+    <div class="wrap">
+      <div class="stats">
+        <div class="stat"><div class="num" id="stat-levelhuruf">0</div><div class="lbl">Level Huruf</div></div>
+        <div class="stat"><div class="num" id="stat-score">0</div><div class="lbl">Skor Kosakata</div></div>
+        <div class="stat"><div class="num" id="stat-benar">0</div><div class="lbl">Benar</div></div>
+      </div>
+      <h2 class="title" style="margin-top:16px;">Menu</h2>
+      <div class="action-card" onclick="goto('belajar')"><div class="emoji">🔤</div><div class="txt"><b>Lanjut Belajar Huruf</b><span>Hiragana & Katakana bertahap</span></div></div>
+      <div class="action-card" onclick="goto('menulis')"><div class="emoji">✍️</div><div class="txt"><b>Latihan Menulis</b><span>Jiplak huruf dengan panduan</span></div></div>
+      <div class="action-card" onclick="openVocabQuiz()"><div class="emoji">📝</div><div class="txt"><b>Kuis Kosakata JLPT</b><span>Uji kata-kata level N5 ke atas</span></div></div>
+      <div class="action-card" onclick="goto('leaderboard')"><div class="emoji">🏆</div><div class="txt"><b>Papan Skor</b><span>Lihat peringkat pembelajar lain</span></div></div>
+    </div>
+  </div>
+
+  <!-- ==== BELAJAR (path level huruf) ==== -->
+  <div id="view-belajar" class="hidden">
+    <div class="quiz-header"><h2 class="title" style="margin:0;">Jalur Belajar 🔤</h2><button class="quiz-back" onclick="goto('dashboard')">Beranda</button></div>
+    <div class="wrap" id="path-list"></div>
+  </div>
+
+  <!-- ==== QUIZ HURUF ==== -->
+  <div id="view-huruf-quiz" class="hidden">
+    <div class="quiz-header">
+      <div class="huruf-progress" id="hq-progress" style="margin:0;"></div>
+      <button class="quiz-back" onclick="goto('belajar')">Keluar</button>
+    </div>
+    <div class="wrap">
+      <div class="card">
+        <button class="sound-btn" onclick="speakChar()">🔊</button>
+        <div class="huruf-display" id="hq-char">あ</div>
+        <div id="hq-options" class="opt-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==== RINGKASAN SESI HURUF ==== -->
+  <div id="view-huruf-summary" class="hidden">
+    <div class="wrap">
+      <div class="card summary-box">
+        <div class="big-emoji" id="sum-emoji">🎉</div>
+        <h2 class="title" id="sum-title">Level Selesai!</h2>
+        <p id="sum-detail" style="color:var(--abu); font-size:14px;"></p>
+        <button onclick="goto('belajar')">Kembali ke Jalur Belajar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==== MENULIS ==== -->
+  <div id="view-menulis" class="hidden">
+    <div class="quiz-header"><h2 class="title" style="margin:0;">Latihan Menulis ✍️</h2><button class="quiz-back" onclick="goto('dashboard')">Beranda</button></div>
+    <div class="wrap">
+      <div class="card">
+        <label style="margin-top:0;">Pilih Huruf</label>
+        <div class="char-grid" id="write-char-grid"></div>
+        <canvas id="write-canvas" width="400" height="400"></canvas>
+        <div class="canvas-actions">
+          <button class="secondary" onclick="clearCanvas()">🧹 Hapus</button>
+          <button onclick="markPracticed()">✅ Sudah Bisa</button>
+        </div>
+        <div id="write-msg"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==== KUIS KOSAKATA (JLPT) ==== -->
+  <div id="view-quiz" class="hidden">
+    <div class="quiz-header"><div class="huruf-progress" style="margin:0;">Skor sesi: <b id="quiz-score-live">0</b></div><button class="quiz-back" onclick="goto('dashboard')">Selesai</button></div>
+    <div class="wrap">
+      <div class="card">
+        <label style="margin-top:0;">Level JLPT</label>
+        <input type="text" id="quiz-level" value="N5">
+        <button onclick="startQuiz()">Mulai</button>
+        <div id="quiz-area" class="hidden" style="margin-top:16px;">
+          <div class="huruf-progress" id="quiz-progress"></div>
+          <div class="huruf-display" style="font-size:44px;" id="quiz-soal-kata"></div>
+          <div id="quiz-pilihan-container"></div>
+          <button class="secondary hidden" id="btn-next" onclick="nextQuestion()">Soal Berikutnya →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==== KAMUS ==== -->
+  <div id="view-dictionary" class="hidden">
+    <div class="wrap">
+      <div class="card">
+        <h2 class="title">Kamus Jepang 📖</h2>
+        <div class="search-row">
+          <input type="text" id="dict-keyword" placeholder="cari kata...">
+          <button onclick="searchWord()">Cari</button>
+        </div>
+        <div style="font-size:11px; color:var(--abu); margin-top:8px;">Sumber: Jisho.org · KanjiAPI.dev · Tatoeba</div>
+        <div id="dict-msg"></div>
+        <div id="dict-results"></div>
+      </div>
     </div>
   </div>
 
   <!-- ==== LEADERBOARD ==== -->
   <div id="view-leaderboard" class="hidden">
-    <div class="card">
-      <h2>Papan Skor</h2>
-      <div id="lb-list"></div>
-    </div>
+    <div class="quiz-header"><h2 class="title" style="margin:0;">Papan Skor 🏆</h2><button class="quiz-back" onclick="goto('dashboard')">Beranda</button></div>
+    <div class="wrap"><div class="card"><div id="lb-list"></div></div></div>
   </div>
 
   <!-- ==== PROFIL ==== -->
   <div id="view-profile" class="hidden">
-    <div class="card">
-      <h2>Edit Profil</h2>
-      <label>Avatar</label>
-      <div class="avatar-picker" id="avatar-picker"></div>
-      <label>Email</label>
-      <input type="email" id="profile-email">
-      <button onclick="saveProfile()">Simpan Profil</button>
-      <div id="profile-msg"></div>
-    </div>
-    <div class="card">
-      <h2>Ganti Password</h2>
-      <label>Password Lama</label>
-      <input type="password" id="old-password">
-      <label>Password Baru</label>
-      <input type="password" id="new-password">
-      <button onclick="changePw()">Ganti Password</button>
-      <div id="pw-msg"></div>
-    </div>
-    <div class="card">
-      <button class="danger" onclick="logout()">Keluar dari Akun</button>
+    <div class="wrap">
+      <div class="card">
+        <h2 class="title">Edit Profil 👤</h2>
+        <label style="margin-top:0;">Avatar</label>
+        <div class="avatar-picker" id="avatar-picker"></div>
+        <label>Email</label>
+        <input type="email" id="profile-email">
+        <button onclick="saveProfile()">Simpan Profil</button>
+        <div id="profile-msg"></div>
+      </div>
+      <div class="card">
+        <h2 class="title">Ganti Password 🔒</h2>
+        <label style="margin-top:0;">Password Lama</label>
+        <input type="password" id="old-password">
+        <label>Password Baru</label>
+        <input type="password" id="new-password">
+        <button onclick="changePw()">Ganti Password</button>
+        <div id="pw-msg"></div>
+      </div>
+      <div class="card"><button class="ghost" onclick="logout()">Keluar dari Akun</button></div>
     </div>
   </div>
 
-  <footer>作られた · Google Sheets sebagai database</footer>
 </div>
 
-<!-- Nav bawah, hanya tampil setelah login -->
 <div class="navbar hidden" id="navbar">
-  <button id="nav-dashboard" onclick="goto('dashboard')">🏠<br>Beranda</button>
-  <button id="nav-dictionary" onclick="goto('dictionary')">📖<br>Kamus</button>
-  <button id="nav-leaderboard" onclick="goto('leaderboard')">🏆<br>Skor</button>
-  <button id="nav-profile" onclick="goto('profile')">👤<br>Profil</button>
+  <button id="nav-dashboard" onclick="goto('dashboard')"><span class="ic">🏠</span>Beranda</button>
+  <button id="nav-belajar" onclick="goto('belajar')"><span class="ic">🔤</span>Belajar</button>
+  <button id="nav-menulis" onclick="goto('menulis')"><span class="ic">✍️</span>Menulis</button>
+  <button id="nav-dictionary" onclick="goto('dictionary')"><span class="ic">📖</span>Kamus</button>
+  <button id="nav-profile" onclick="goto('profile')"><span class="ic">👤</span>Profil</button>
 </div>
 
 <script>
 // ==== KONFIGURASI ====
-const API_URL = "https://script.google.com/macros/s/AKfycbx-qB-5j1SKBli5n0gBgVj2ctZNLiZ7EaNsnwiqhW4HpmS0G6rcJ8UvsgIlhhREuxDQ/exec";// ganti dengan URL Web App dari Apps Script
+const API_URL = "https://script.google.com/macros/s/AKfycbx-qB-5j1SKBli5n0gBgVj2ctZNLiZ7EaNsnwiqhW4HpmS0G6rcJ8UvsgIlhhREuxDQ/exec";
 const AVATARS = ["🎓","🐱","🌸","🍜","⛩️","🎌","🐉","🍡"];
 
 // ==== STATE ====
 let token = localStorage.getItem("nihongo_token") || null;
-let questions = [], currentIndex = 0, liveScore = 0;
 let selectedAvatar = "🎓";
+// huruf quiz state
+let hqQuestions = [], hqIndex = 0, hqCorrect = 0, hqCurrentLevel = 0;
+// vocab quiz state
+let questions = [], currentIndex = 0, liveScore = 0;
+// menulis state
+let writeChars = [], writeCurrentChar = "あ";
+let canvasCtx, drawing = false;
 
 // ==== HELPER ====
 async function apiCall(payload) {
   const res = await fetch(API_URL, { method: "POST", body: JSON.stringify(payload) });
   return res.json();
 }
-function showMsg(elId, text, ok) {
-  document.getElementById(elId).innerHTML = `<div class="msg ${ok ? "ok" : "err"}">${text}</div>`;
-}
+function showMsg(elId, text, ok) { document.getElementById(elId).innerHTML = `<div class="msg ${ok?"ok":"err"}">${text}</div>`; }
 function showView(name) {
-  ["login","register","dashboard","quiz","dictionary","leaderboard","profile"].forEach(v => {
-    document.getElementById("view-" + v).classList.add("hidden");
-  });
-  document.getElementById("view-" + name).classList.remove("hidden");
-
+  ["login","register","dashboard","belajar","huruf-quiz","huruf-summary","menulis","quiz","dictionary","leaderboard","profile"].forEach(v => document.getElementById("view-"+v).classList.add("hidden"));
+  document.getElementById("view-"+name).classList.remove("hidden");
   const nav = document.getElementById("navbar");
-  const authViews = ["dashboard","dictionary","leaderboard","profile"];
-  if (authViews.includes(name)) {
+  const navViews = ["dashboard","belajar","menulis","dictionary","profile"];
+  if (navViews.includes(name)) {
     nav.classList.remove("hidden");
-    ["dashboard","dictionary","leaderboard","profile"].forEach(v => {
-      document.getElementById("nav-" + v).classList.toggle("active", v === name);
-    });
+    navViews.forEach(v => document.getElementById("nav-"+v).classList.toggle("active", v===name));
+  } else if (["huruf-quiz","huruf-summary","quiz","leaderboard"].includes(name)) {
+    nav.classList.add("hidden");
   } else {
     nav.classList.add("hidden");
   }
 }
 function goto(view) {
-  if (view === "dashboard") loadDashboard();
-  else if (view === "dictionary") showView("dictionary");
-  else if (view === "leaderboard") loadLeaderboard();
-  else if (view === "profile") loadProfileEdit();
+  if (view==="dashboard") loadDashboard();
+  else if (view==="belajar") loadBelajar();
+  else if (view==="menulis") loadMenulis();
+  else if (view==="dictionary") showView("dictionary");
+  else if (view==="leaderboard") loadLeaderboard();
+  else if (view==="profile") loadProfileEdit();
 }
 
 // ==== AUTH ====
@@ -278,66 +382,186 @@ async function handleRegister() {
   const u = document.getElementById("reg-username").value.trim();
   const p = document.getElementById("reg-password").value;
   const e = document.getElementById("reg-email").value.trim();
-  if (!u || p.length < 6) { showMsg("reg-msg", "Username wajib diisi & password minimal 6 karakter", false); return; }
-  const result = await apiCall({ action: "register", username: u, password: p, email: e });
+  if (!u || p.length < 6) { showMsg("reg-msg","Username wajib diisi & password minimal 6 karakter", false); return; }
+  const result = await apiCall({ action:"register", username:u, password:p, email:e });
   showMsg("reg-msg", result.message, result.success);
   if (result.success) setTimeout(() => showView("login"), 1200);
 }
-
 async function handleLogin() {
   const u = document.getElementById("login-username").value.trim();
   const p = document.getElementById("login-password").value;
-  if (!u || !p) { showMsg("login-msg", "Isi username dan password", false); return; }
-  const result = await apiCall({ action: "login", username: u, password: p });
-  if (result.success) {
-    token = result.token;
-    localStorage.setItem("nihongo_token", token);
-    loadDashboard();
-  } else {
-    showMsg("login-msg", result.message, false);
-  }
+  if (!u || !p) { showMsg("login-msg","Isi username dan password", false); return; }
+  const result = await apiCall({ action:"login", username:u, password:p });
+  if (result.success) { token = result.token; localStorage.setItem("nihongo_token", token); loadDashboard(); }
+  else showMsg("login-msg", result.message, false);
 }
-function logout() {
-  localStorage.removeItem("nihongo_token");
-  token = null;
-  showView("login");
-}
+function logout() { localStorage.removeItem("nihongo_token"); token = null; showView("login"); }
 
-// ==== DASHBOARD ====
+// ==== BERANDA ====
 async function loadDashboard() {
-  const result = await apiCall({ action: "getProfile", token });
+  const result = await apiCall({ action:"getProfile", token });
   if (!result.success) { logout(); return; }
   document.getElementById("dash-username").textContent = result.username;
   document.getElementById("dash-avatar").textContent = result.avatar;
-  document.getElementById("dash-level").textContent = "Level " + result.level;
+  document.getElementById("dash-streak").textContent = result.streak;
+  document.getElementById("stat-levelhuruf").textContent = result.level_huruf;
   document.getElementById("stat-score").textContent = result.total_score;
   document.getElementById("stat-benar").textContent = result.benar;
-  document.getElementById("stat-salah").textContent = result.salah;
+  const pct = Math.min(100, (result.xp_huruf % 50) / 50 * 100);
+  document.getElementById("dash-xpbar").style.width = pct + "%";
   showView("dashboard");
 }
+function openVocabQuiz() { showView("quiz"); document.getElementById("navbar").classList.add("hidden"); }
 
-// ==== QUIZ ====
+// ==== BELAJAR: jalur level huruf ====
+async function loadBelajar() {
+  showView("belajar");
+  const listEl = document.getElementById("path-list");
+  listEl.innerHTML = "Memuat...";
+  const result = await apiCall({ action:"getHurufLevels", token });
+  if (!result.success) { listEl.innerHTML = "Gagal memuat."; return; }
+  listEl.innerHTML = result.levels.map(l => `
+    <div class="path-node ${l.unlocked ? "unlocked" : "locked"}" ${l.unlocked ? `onclick="startHurufQuiz(${l.level})"` : ""}>
+      <div class="lv-badge">${l.unlocked ? l.level : "🔒"}</div>
+      <div class="info"><b>${l.tipe==="hiragana"?"Hiragana":"Katakana"}: ${l.label}</b><span>${l.jumlah} huruf · Level ${l.level}</span></div>
+    </div>
+  `).join("");
+}
+
+// ==== QUIZ HURUF ====
+async function startHurufQuiz(level) {
+  const result = await apiCall({ action:"getHurufQuestions", token, level });
+  if (!result.success || result.questions.length === 0) { alert("Belum ada huruf di level ini."); return; }
+  hqQuestions = result.questions; hqIndex = 0; hqCorrect = 0; hqCurrentLevel = level;
+  showView("huruf-quiz");
+  renderHurufQuestion();
+}
+function renderHurufQuestion() {
+  const q = hqQuestions[hqIndex];
+  document.getElementById("hq-progress").textContent = `Soal ${hqIndex+1} dari ${hqQuestions.length}`;
+  document.getElementById("hq-char").textContent = q.karakter;
+  const optEl = document.getElementById("hq-options");
+  optEl.innerHTML = "";
+  q.options.forEach(opt => {
+    const btn = document.createElement("button");
+    btn.className = "opt-btn";
+    btn.textContent = opt;
+    btn.onclick = () => answerHuruf(opt, btn);
+    optEl.appendChild(btn);
+  });
+}
+function speakChar() {
+  try {
+    const q = hqQuestions[hqIndex];
+    if (!q) return;
+    const utter = new SpeechSynthesisUtterance(q.karakter);
+    utter.lang = "ja-JP";
+    speechSynthesis.speak(utter);
+  } catch(e) {}
+}
+async function answerHuruf(jawaban, btnEl) {
+  const q = hqQuestions[hqIndex];
+  document.querySelectorAll(".opt-btn").forEach(b => b.disabled = true);
+  const result = await apiCall({ action:"submitHurufAnswer", token, huruf_id:q.huruf_id, jawaban });
+  if (!result.success) { alert(result.message); return; }
+  if (result.correct) { btnEl.classList.add("correct"); hqCorrect++; }
+  else {
+    btnEl.classList.add("wrong");
+    document.querySelectorAll(".opt-btn").forEach(b => { if (b.textContent === result.romaji_benar) b.classList.add("correct"); });
+  }
+  setTimeout(() => {
+    hqIndex++;
+    if (hqIndex >= hqQuestions.length) showHurufSummary();
+    else renderHurufQuestion();
+  }, 700);
+}
+function showHurufSummary() {
+  showView("huruf-summary");
+  const total = hqQuestions.length;
+  document.getElementById("sum-emoji").textContent = hqCorrect === total ? "🏆" : "🎉";
+  document.getElementById("sum-title").textContent = hqCorrect === total ? "Sempurna!" : "Level Selesai!";
+  document.getElementById("sum-detail").textContent = `Kamu jawab benar ${hqCorrect} dari ${total} soal.`;
+}
+
+// ==== MENULIS ====
+async function loadMenulis() {
+  showView("menulis");
+  const result = await apiCall({ action:"getHurufLevels", token });
+  if (!result.success) return;
+  // ambil huruf dari level yang sudah terbuka via getHurufQuestions gabungan
+  const unlockedLevels = result.levels.filter(l => l.unlocked).map(l => l.level);
+  writeChars = [];
+  for (const lvl of unlockedLevels) {
+    const q = await apiCall({ action:"getHurufQuestions", token, level: lvl });
+    if (q.success) writeChars = writeChars.concat(q.questions.map(x => x.karakter));
+  }
+  if (writeChars.length === 0) writeChars = ["あ","い","う","え","お"];
+  const grid = document.getElementById("write-char-grid");
+  grid.innerHTML = "";
+  writeChars.forEach(ch => {
+    const el = document.createElement("div");
+    el.className = "char-pick" + (ch === writeCurrentChar ? " active" : "");
+    el.textContent = ch;
+    el.onclick = () => { writeCurrentChar = ch; loadMenulis_refreshGrid(); drawGuide(); };
+    grid.appendChild(el);
+  });
+  writeCurrentChar = writeChars[0];
+  setupCanvas();
+}
+function loadMenulis_refreshGrid() {
+  document.querySelectorAll(".char-pick").forEach(el => el.classList.toggle("active", el.textContent === writeCurrentChar));
+  drawGuide();
+}
+function setupCanvas() {
+  const canvas = document.getElementById("write-canvas");
+  canvas.width = canvas.clientWidth; canvas.height = canvas.clientWidth;
+  canvasCtx = canvas.getContext("2d");
+  drawGuide();
+  canvas.onpointerdown = e => { drawing = true; draw(e); };
+  canvas.onpointermove = e => { if (drawing) draw(e); };
+  canvas.onpointerup = () => drawing = false;
+  canvas.onpointerleave = () => drawing = false;
+}
+function drawGuide() {
+  const canvas = document.getElementById("write-canvas");
+  canvasCtx.clearRect(0,0,canvas.width,canvas.height);
+  canvasCtx.fillStyle = "rgba(20,20,43,0.10)";
+  canvasCtx.font = "bold " + (canvas.width*0.6) + "px sans-serif";
+  canvasCtx.textAlign = "center"; canvasCtx.textBaseline = "middle";
+  canvasCtx.fillText(writeCurrentChar, canvas.width/2, canvas.height/2);
+  canvasCtx.strokeStyle = "#E63946"; canvasCtx.lineWidth = 6; canvasCtx.lineCap = "round";
+}
+function draw(e) {
+  const canvas = document.getElementById("write-canvas");
+  const rect = canvas.getBoundingClientRect();
+  const x = (e.clientX - rect.left) * (canvas.width/rect.width);
+  const y = (e.clientY - rect.top) * (canvas.height/rect.height);
+  canvasCtx.lineTo(x,y); canvasCtx.stroke(); canvasCtx.beginPath(); canvasCtx.moveTo(x,y);
+}
+function clearCanvas() { drawGuide(); canvasCtx.beginPath(); }
+function markPracticed() { showMsg("write-msg", "Bagus! Terus latihan huruf lain juga ya ✍️", true); }
+
+// ==== KUIS KOSAKATA (JLPT) ====
 async function startQuiz() {
   const level = document.getElementById("quiz-level").value.trim();
-  const result = await apiCall({ action: "getQuestions", token, level });
+  const result = await apiCall({ action:"getQuestions", token, level });
   if (!result.success || result.questions.length === 0) { alert("Belum ada soal untuk level ini."); return; }
-  questions = result.questions.sort(() => Math.random() - 0.5);
+  questions = result.questions.sort(() => Math.random()-0.5);
   currentIndex = 0; liveScore = 0;
   document.getElementById("quiz-score-live").textContent = liveScore;
-  showView("quiz");
+  document.getElementById("quiz-area").classList.remove("hidden");
   renderQuestion();
 }
 function renderQuestion() {
   const q = questions[currentIndex];
-  document.getElementById("quiz-progress").textContent = `Soal ${currentIndex + 1} dari ${questions.length}`;
-  document.getElementById("quiz-soal-level").textContent = q.level;
+  document.getElementById("quiz-progress").textContent = `Soal ${currentIndex+1} dari ${questions.length}`;
   document.getElementById("quiz-soal-kata").textContent = q.kata;
   document.getElementById("btn-next").classList.add("hidden");
   const container = document.getElementById("quiz-pilihan-container");
   container.innerHTML = "";
   q.pilihan.forEach(opt => {
     const btn = document.createElement("button");
-    btn.className = "pilihan-btn";
+    btn.className = "opt-btn"; btn.style.marginTop="10px"; btn.style.width="100%";
     btn.textContent = opt;
     btn.onclick = () => answerQuestion(opt, btn);
     container.appendChild(btn);
@@ -345,80 +569,58 @@ function renderQuestion() {
 }
 async function answerQuestion(jawaban, btnEl) {
   const q = questions[currentIndex];
-  document.querySelectorAll(".pilihan-btn").forEach(b => b.disabled = true);
-  const result = await apiCall({ action: "submitAnswer", token, soal_id: q.soal_id, jawaban });
+  document.querySelectorAll("#quiz-pilihan-container .opt-btn").forEach(b => b.disabled = true);
+  const result = await apiCall({ action:"submitAnswer", token, soal_id:q.soal_id, jawaban });
   if (!result.success) { alert(result.message); return; }
   if (result.correct) { btnEl.classList.add("correct"); liveScore += 10; }
   else {
     btnEl.classList.add("wrong");
-    document.querySelectorAll(".pilihan-btn").forEach(b => { if (b.textContent === result.jawaban_benar) b.classList.add("correct"); });
+    document.querySelectorAll("#quiz-pilihan-container .opt-btn").forEach(b => { if (b.textContent === result.jawaban_benar) b.classList.add("correct"); });
   }
   document.getElementById("quiz-score-live").textContent = liveScore;
   document.getElementById("btn-next").classList.remove("hidden");
 }
 function nextQuestion() {
   currentIndex++;
-  if (currentIndex >= questions.length) backToDashboard(); else renderQuestion();
+  if (currentIndex >= questions.length) { document.getElementById("quiz-area").classList.add("hidden"); loadDashboard(); }
+  else renderQuestion();
 }
-function backToDashboard() { loadDashboard(); }
 
-// ==== KAMUS (Jisho + KanjiAPI + Tatoeba) ====
+// ==== KAMUS ====
 async function searchWord() {
   const keyword = document.getElementById("dict-keyword").value.trim();
   const resultsEl = document.getElementById("dict-results");
   if (!keyword) return;
-  resultsEl.innerHTML = "";
-  showMsg("dict-msg", "Mencari...", true);
-
-  const result = await apiCall({ action: "lookupWord", keyword });
-  if (!result.success || result.results.length === 0) {
-    showMsg("dict-msg", "Kata tidak ditemukan", false);
-    return;
-  }
+  resultsEl.innerHTML = ""; showMsg("dict-msg","Mencari...", true);
+  const result = await apiCall({ action:"lookupWord", keyword });
+  if (!result.success || result.results.length === 0) { showMsg("dict-msg","Kata tidak ditemukan", false); return; }
   document.getElementById("dict-msg").innerHTML = "";
-
   result.results.forEach(item => {
-    const card = document.createElement("div");
-    card.className = "word-card";
+    const card = document.createElement("div"); card.className = "word-card";
     const kanjiChars = [...item.word].filter(ch => /[\u4e00-\u9faf]/.test(ch));
     card.innerHTML = `
-      <div class="jp">${item.word}</div>
-      <div class="reading">${item.reading}</div>
-      <div class="meaning">${item.meanings}</div>
-      <div class="pos">${item.pos}</div>
+      <div class="jp">${item.word}</div><div class="reading">${item.reading}</div>
+      <div class="meaning">${item.meanings}</div><div class="pos">${item.pos}</div>
       <div class="actions">
-        ${kanjiChars.length ? `<button class="secondary" onclick="showKanjiInfo(this, '${kanjiChars[0]}')">🈶 Detail Kanji</button>` : ""}
-        <button class="secondary" onclick="showExamples(this, '${item.word}')">💬 Contoh Kalimat</button>
-      </div>
-      <div class="extra-box hidden"></div>
-    `;
+        ${kanjiChars.length ? `<button class="secondary" onclick="showKanjiInfo(this,'${kanjiChars[0]}')">🈶 Kanji</button>` : ""}
+        <button class="secondary" onclick="showExamples(this,'${item.word}')">💬 Contoh</button>
+      </div><div class="extra-box hidden"></div>`;
     resultsEl.appendChild(card);
   });
 }
-
 async function showKanjiInfo(btn, kanji) {
   const box = btn.closest(".word-card").querySelector(".extra-box");
-  box.classList.remove("hidden");
-  box.innerHTML = "Memuat detail kanji...";
-  const result = await apiCall({ action: "lookupKanji", kanji });
+  box.classList.remove("hidden"); box.innerHTML = "Memuat...";
+  const result = await apiCall({ action:"lookupKanji", kanji });
   if (!result.success) { box.innerHTML = "Detail kanji tidak ditemukan."; return; }
-  box.innerHTML = `
-    <b>${result.kanji}</b> — JLPT ${result.jlpt}, Kelas ${result.grade}, ${result.stroke_count} goresan<br>
-    Arti: ${result.meanings}<br>
-    Kun'yomi: ${result.kun_readings || "-"}<br>
-    On'yomi: ${result.on_readings || "-"}
-  `;
+  box.innerHTML = `<b>${result.kanji}</b> — JLPT ${result.jlpt}, Kelas ${result.grade}, ${result.stroke_count} goresan<br>Arti: ${result.meanings}<br>Kun'yomi: ${result.kun_readings||"-"}<br>On'yomi: ${result.on_readings||"-"}`;
 }
-
 async function showExamples(btn, word) {
   const box = btn.closest(".word-card").querySelector(".extra-box");
-  box.classList.remove("hidden");
-  box.innerHTML = "Memuat contoh kalimat...";
-  const result = await apiCall({ action: "lookupExample", keyword: word });
+  box.classList.remove("hidden"); box.innerHTML = "Memuat...";
+  const result = await apiCall({ action:"lookupExample", keyword: word });
   if (!result.success || result.examples.length === 0) { box.innerHTML = "Belum ada contoh kalimat."; return; }
-  box.innerHTML = result.examples.map(ex => `
-    <div class="example-line"><div class="jp">${ex.japanese}</div><div class="tr">${ex.translation}</div></div>
-  `).join("");
+  box.innerHTML = result.examples.map(ex => `<div class="example-line"><div class="jp">${ex.japanese}</div><div class="tr">${ex.translation}</div></div>`).join("");
 }
 
 // ==== LEADERBOARD ====
@@ -426,22 +628,18 @@ async function loadLeaderboard() {
   showView("leaderboard");
   const listEl = document.getElementById("lb-list");
   listEl.innerHTML = "Memuat...";
-  const result = await apiCall({ action: "getLeaderboard" });
-  if (!result.success) { listEl.innerHTML = "Gagal memuat papan skor."; return; }
-  listEl.innerHTML = result.leaderboard.map((u, i) => `
-    <div class="lb-row">
-      <div class="lb-rank">#${i + 1}</div>
-      <div class="lb-avatar">${u.avatar}</div>
-      <div class="lb-name">${u.username}<br><span style="font-size:11px;color:var(--ai-light);">Level ${u.level}</span></div>
-      <div class="lb-score">${u.score} pt</div>
-    </div>
-  `).join("") || "Belum ada data.";
+  const result = await apiCall({ action:"getLeaderboard" });
+  if (!result.success) { listEl.innerHTML = "Gagal memuat."; return; }
+  listEl.innerHTML = result.leaderboard.map((u,i) => `
+    <div class="lb-row"><div class="lb-rank">#${i+1}</div><div class="lb-avatar">${u.avatar}</div>
+    <div class="lb-name">${u.username}<br><span style="font-size:11px;color:var(--abu);">Level ${u.level}</span></div>
+    <div class="lb-score">${u.score} pt</div></div>`).join("") || "Belum ada data.";
 }
 
 // ==== PROFIL ====
 async function loadProfileEdit() {
   showView("profile");
-  const result = await apiCall({ action: "getProfile", token });
+  const result = await apiCall({ action:"getProfile", token });
   if (!result.success) { logout(); return; }
   document.getElementById("profile-email").value = result.email || "";
   selectedAvatar = result.avatar || "🎓";
@@ -460,15 +658,15 @@ function renderAvatarPicker() {
 }
 async function saveProfile() {
   const email = document.getElementById("profile-email").value.trim();
-  const result = await apiCall({ action: "updateProfile", token, email, avatar: selectedAvatar });
+  const result = await apiCall({ action:"updateProfile", token, email, avatar: selectedAvatar });
   showMsg("profile-msg", result.message, result.success);
 }
 async function changePw() {
   const oldP = document.getElementById("old-password").value;
   const newP = document.getElementById("new-password").value;
-  const result = await apiCall({ action: "changePassword", token, oldPassword: oldP, newPassword: newP });
+  const result = await apiCall({ action:"changePassword", token, oldPassword: oldP, newPassword: newP });
   showMsg("pw-msg", result.message, result.success);
-  if (result.success) { document.getElementById("old-password").value = ""; document.getElementById("new-password").value = ""; }
+  if (result.success) { document.getElementById("old-password").value=""; document.getElementById("new-password").value=""; }
 }
 
 // ==== INIT ====
